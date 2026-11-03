@@ -1,0 +1,8 @@
+BRIDGET CODES PORTFOLIO PACKAGE
+
+1. Keep all files in this folder together.
+2. Open bridget-codes-portfolio.html to preview the portfolio.
+3. The three project screenshots are already connected to the Projects section.
+4. The Calculator and To-Do List links open their included HTML files.
+5. The portfolio's About section refers to bridget-profile.jpg. Add your profile photo with that exact filename to this folder if it is not already there.
+6. When deploying, upload the contents of this folder together so the images and project links work.

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f4f5f2">
+  <title>Calculator — Bridget Codes</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --page: #f4f5f2;
+      --surface: #ffffff;
+      --surface-soft: #f0f2ee;
+      --text: #20251f;
+      --muted: #788076;
+      --border: #e5e8e2;
+      --accent: #238a4b;
+      --accent-hover: #19733d;
+      --shadow: 0 18px 50px rgba(28, 39, 29, .08);
+    }
+    [data-theme="dark"] {
+      color-scheme: dark;
+      --page: #171b18;
+      --surface: #222823;
+      --surface-soft: #2b332d;
+      --text: #f0f4ef;
+      --muted: #a2ada3;
+      --border: #384139;
+      --accent: #54bd78;
+      --accent-hover: #40a966;
+      --shadow: 0 18px 50px rgba(0, 0, 0, .22);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; padding: 32px 18px;
+      display: grid; place-items: center;
+      background: var(--page); color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      transition: background .2s, color .2s;
+    }
+    .app { width: min(100%, 430px); }
+    .topbar { display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; }
+    .brand { font-size:13px; font-weight:750; letter-spacing:.11em; }
+    .brand span { color:var(--accent); }
+    .top-actions { display:flex; gap:8px; }
+    .icon-btn {
+      width:38px; height:38px; border:1px solid var(--border); border-radius:11px;
+      background:var(--surface); color:var(--text); cursor:pointer; font-size:17px;
+    }
+    .icon-btn:hover { border-color:var(--accent); }
+    .heading { margin:0 0 5px; font-size:25px; letter-spacing:-.7px; }
+    .subheading { margin:0 0 22px; color:var(--muted); font-size:13px; }
+    .calculator {
+      padding:18px; border:1px solid var(--border); border-radius:22px;
+      background:var(--surface); box-shadow:var(--shadow);
+    }
+    .display {
+      min-height:128px; padding:17px 14px 15px; margin-bottom:16px;
+      display:flex; flex-direction:column; justify-content:flex-end; align-items:flex-end;
+      background:var(--surface-soft); border-radius:15px; overflow:hidden;
+    }
+    .previous { min-height:22px; width:100%; text-align:right; color:var(--muted); font-size:14px; overflow-wrap:anywhere; }
+    .current { width:100%; text-align:right; font-size:clamp(30px, 8vw, 42px); line-height:1.25; font-weight:600; letter-spacing:-1.5px; overflow-wrap:anywhere; }
+    .keys { display:grid; grid-template-columns:repeat(4, 1fr); gap:10px; }
+    .key {
+      min-height:58px; border:0; border-radius:13px; background:var(--surface-soft);
+      color:var(--text); font:600 18px inherit; font-size:18px; cursor:pointer;
+      transition:background .15s, transform .1s;
+    }
+    .key:hover { filter:brightness(.97); }
+    .key:active { transform:scale(.96); }
+    .key.utility { color:var(--accent); font-size:15px; }
+    .key.operator { background:color-mix(in srgb, var(--accent) 12%, var(--surface)); color:var(--accent); }
+    .key.equals { background:var(--accent); color:#fff; }
+    .key.equals:hover { background:var(--accent-hover); }
+    .key.zero { grid-column:span 2; }
+    .history {
+      margin-top:15px; padding:15px 16px; border:1px solid var(--border);
+      border-radius:16px; background:var(--surface);
+    }
+    .history-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+    .history-title { margin:0; font-size:13px; font-weight:700; }
+    .clear-history { border:0; background:none; color:var(--accent); font:600 12px inherit; cursor:pointer; }
+    .history-list { display:grid; gap:8px; max-height:130px; overflow:auto; }
+    .history-item { display:flex; justify-content:space-between; gap:12px; color:var(--muted); font-size:12px; }
+    .history-item strong { color:var(--text); font-size:13px; font-weight:650; }
+    .empty { color:var(--muted); font-size:12px; margin:0; }
+    .footer { text-align:center; margin-top:17px; color:var(--muted); font-size:11px; }
+    .footer strong { color:var(--accent); font-weight:700; }
+    @media (max-width:380px) {
+      body { padding:22px 12px; }
+      .calculator { padding:13px; }
+      .keys { gap:8px; }
+      .key { min-height:54px; }
+    }
+    a{
+      color: green;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand">BRIDGET <span>CODES</span></div>
+      <div class="top-actions">
+        <button class="icon-btn" id="themeToggle" aria-label="Toggle dark mode" title="Toggle theme">☾</button>
+      </div>
+    </header>
+
+    <h1 class="heading">Calculator</h1>
+    <p class="subheading">A simple calculator for everyday calculations.</p>
+
+    <section class="calculator" aria-label="Calculator">
+      <div class="display" aria-live="polite">
+        <div class="previous" id="previous"></div>
+        <div class="current" id="current">0</div>
+      </div>
+      <div class="keys">
+        <button class="key utility" data-action="clear">AC</button>
+        <button class="key utility" data-action="delete">DEL</button>
+        <button class="key utility" data-action="percent">%</button>
+        <button class="key operator" data-operator="÷">÷</button>
+
+        <button class="key" data-number="7">7</button>
+        <button class="key" data-number="8">8</button>
+        <button class="key" data-number="9">9</button>
+        <button class="key operator" data-operator="×">×</button>
+
+        <button class="key" data-number="4">4</button>
+        <button class="key" data-number="5">5</button>
+        <button class="key" data-number="6">6</button>
+        <button class="key operator" data-operator="−">−</button>
+
+        <button class="key" data-number="1">1</button>
+        <button class="key" data-number="2">2</button>
+        <button class="key" data-number="3">3</button>
+        <button class="key operator" data-operator="+">+</button>
+
+        <button class="key zero" data-number="0">0</button>
+        <button class="key" data-action="decimal">.</button>
+        <button class="key equals" data-action="equals">=</button>
+      </div>
+    </section>
+
+    <section class="history" aria-label="Calculation history">
+      <div class="history-head">
+        <h2 class="history-title">Recent calculations</h2>
+        <button class="clear-history" id="clearHistory">Clear history</button>
+      </div>
+      <div class="history-list" id="historyList">
+        <p class="empty">Your calculations will appear here.</p>
+      </div>
+    </section>
+    <p class="footer">Made with care by <a  href="bridget-codes-portfolio.html">BRIDGET CODES</a></p>
+  </main>
+
+  <script>
+    const currentEl = document.getElementById('current');
+    const previousEl = document.getElementById('previous');
+    const historyList = document.getElementById('historyList');
+    let current = '0';
+    let previous = '';
+    let operator = null;
+    let shouldReset = false;
+    let history = JSON.parse(localStorage.getItem('bc-calculator-history') || '[]');
+
+    function render() {
+      currentEl.textContent = current;
+      previousEl.textContent = previous;
+      renderHistory();
+    }
+    function formatNumber(value) {
+      if (!Number.isFinite(value)) return 'Error';
+      return String(Number.parseFloat(value.toPrecision(12)));
+    }
+    function inputNumber(number) {
+      if (current === 'Error' || shouldReset) { current = number; shouldReset = false; }
+      else if (current === '0') current = number;
+      else if (current.length < 16) current += number;
+      render();
+    }
+    function chooseOperator(nextOperator) {
+      if (current === 'Error') return;
+      if (operator && !shouldReset) calculate();
+      previous = current + ' ' + nextOperator;
+      operator = nextOperator;
+      shouldReset = true;
+      render();
+    }
+    function calculate() {
+      if (!operator || current === 'Error') return;
+      const first = Number(previous.split(' ')[0]);
+      const second = Number(current);
+      let result;
+      switch (operator) {
+        case '+': result = first + second; break;
+        case '−': result = first - second; break;
+        case '×': result = first * second; break;
+        case '÷': result = second === 0 ? NaN : first / second; break;
+      }
+      const expression = `${formatNumber(first)} ${operator} ${formatNumber(second)}`;
+      current = formatNumber(result);
+      previous = expression + ' =';
+      if (current !== 'Error') {
+        history.unshift({ expression, result: current });
+        history = history.slice(0, 8);
+        localStorage.setItem('bc-calculator-history', JSON.stringify(history));
+      }
+      operator = null;
+      shouldReset = true;
+      render();
+    }
+    function clearAll() { current = '0'; previous = ''; operator = null; shouldReset = false; render(); }
+    function deleteLast() {
+      if (shouldReset || current === 'Error') { current = '0'; shouldReset = false; }
+      else current = current.length > 1 ? current.slice(0, -1) : '0';
+      render();
+    }
+    function percent() {
+      if (current !== 'Error') current = formatNumber(Number(current) / 100);
+      render();
+    }
+    function decimal() {
+      if (shouldReset || current === 'Error') { current = '0.'; shouldReset = false; }
+      else if (!current.includes('.')) current += '.';
+      render();
+    }
+    function renderHistory() {
+      if (!history.length) {
+        historyList.innerHTML = '<p class="empty">Your calculations will appear here.</p>';
+        return;
+      }
+      historyList.innerHTML = history.map(item =>
+        `<div class="history-item"><span>${escapeHTML(item.expression)}</span><strong>${escapeHTML(item.result)}</strong></div>`
+      ).join('');
+    }
+    function escapeHTML(value) {
+      return String(value).replace(/[&<>"']/g, char => ({
+        '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
+      }[char]));
+    }
+
+    document.querySelector('.keys').addEventListener('click', event => {
+      const button = event.target.closest('button');
+      if (!button) return;
+      if (button.dataset.number !== undefined) inputNumber(button.dataset.number);
+      if (button.dataset.operator) chooseOperator(button.dataset.operator);
+      switch (button.dataset.action) {
+        case 'clear': clearAll(); break;
+        case 'delete': deleteLast(); break;
+        case 'percent': percent(); break;
+        case 'decimal': decimal(); break;
+        case 'equals': calculate(); break;
+      }
+    });
+
+    document.addEventListener('keydown', event => {
+      if (/^[0-9]$/.test(event.key)) inputNumber(event.key);
+      else if (event.key === '.') decimal();
+      else if (event.key === '+') chooseOperator('+');
+      else if (event.key === '-') chooseOperator('−');
+      else if (event.key === '*') chooseOperator('×');
+      else if (event.key === '/') { event.preventDefault(); chooseOperator('÷'); }
+      else if (event.key === 'Enter' || event.key === '=') { event.preventDefault(); calculate(); }
+      else if (event.key === 'Backspace') deleteLast();
+      else if (event.key === 'Escape') clearAll();
+      else if (event.key === '%') percent();
+    });
+
+    document.getElementById('clearHistory').addEventListener('click', () => {
+      history = [];
+      localStorage.removeItem('bc-calculator-history');
+      render();
+    });
+    const themeToggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('bc-calculator-theme') || 'light';
+    document.documentElement.dataset.theme = savedTheme;
+    themeToggle.textContent = savedTheme === 'dark' ? '☀' : '☾';
+    themeToggle.addEventListener('click', () => {
+      const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+      document.documentElement.dataset.theme = next;
+      localStorage.setItem('bc-calculator-theme', next);
+      themeToggle.textContent = next === 'dark' ? '☀' : '☾';
+    });
+    render();
+  </script>
+</body>
+</html>

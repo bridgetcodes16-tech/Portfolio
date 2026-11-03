@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="BRIDGET CODES creates responsive websites and graphics for individuals and businesses.">
+<meta name="theme-color" content="#101411">
+<title>BRIDGET CODES | Web Developer & Graphic Designer</title>
+<link rel="icon" href="IMG-20261103-WA0028.jpg" type="image/x-icon">
+<style>
+:root{
+  --bg:#101411;--surface:#171d19;--surface2:#1d251f;--text:#f3f5f3;
+  --muted:#aab3ac;--green:#a3e635;--line:#303a32;--max:1180px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;line-height:1.65}
+a{color:inherit;text-decoration:none}
+.container{width:min(var(--max),calc(100% - 64px));margin:0 auto}
+header{position:sticky;top:0;z-index:20;background:rgba(16,20,17,.97);border-bottom:1px solid var(--line)}
+.nav-wrap{height:76px;display:flex;align-items:center;justify-content:space-between;gap:28px}
+.logo{display:flex;align-items:center;gap:11px;font-size:16px;font-weight:800;letter-spacing:.8px;white-space:nowrap}
+.logo-mark{width:38px;height:38px;display:grid;place-items:center;border:1px solid var(--green);border-radius:8px;color:var(--green);font-size:14px}
+.logo-name span{color:var(--green)}
+nav{display:flex;align-items:center;gap:30px}
+nav a{font-size:14px;color:#c6cec8;transition:color .2s}
+nav a:hover{color:var(--green)}
+.nav-contact{padding:9px 16px;border:1px solid var(--green);border-radius:6px;color:var(--green)}
+.menu-toggle{display:none;background:none;color:white;border:1px solid var(--line);border-radius:6px;padding:7px 11px;font-size:20px}
+.hero{padding:112px 0 100px}
+.hero-grid{display:grid;grid-template-columns:1.2fr .8fr;align-items:center;gap:76px}
+.eyebrow,.section-kicker{color:var(--green);font-size:12px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase}
+.eyebrow{margin:0 0 20px}
+h1{max-width:720px;margin:0;font-size:clamp(48px,6vw,76px);line-height:1.06;letter-spacing:-3px}
+h1 span{color:var(--green)}
+.hero-copy{max-width:610px;margin:24px 0 32px;color:var(--muted);font-size:17px;line-height:1.8}
+.actions{display:flex;flex-wrap:wrap;gap:14px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 21px;border:1px solid var(--green);border-radius:6px;font-size:14px;font-weight:700;transition:transform .18s,background .18s}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--green);color:#17210e}
+.btn-primary:hover{background:#b6ef5a}
+.btn-outline{color:var(--green)}
+.btn-outline:hover{background:rgba(163,230,53,.08)}
+.hero-note{padding:30px;background:var(--surface);border:1px solid var(--line);border-radius:11px}
+.hero-note small{color:var(--green);font-size:12px;font-weight:700;letter-spacing:1.7px}
+.hero-note h2{margin:13px 0 12px;font-size:29px;line-height:1.25}
+.hero-note p{margin:0;color:var(--muted);font-size:15px}
+.note-line{height:1px;margin:25px 0;background:var(--line)}
+.mini-services{display:flex;flex-wrap:wrap;gap:9px}
+.mini-services span{padding:7px 11px;border:1px solid var(--line);border-radius:5px;color:#d6ddd7;font-size:12px}
+section{padding:88px 0;scroll-margin-top:76px}
+.section-head{max-width:700px;margin-bottom:36px}
+.section-kicker{margin:0 0 10px}
+h2.section-title{margin:0;font-size:clamp(32px,4vw,46px);line-height:1.16;letter-spacing:-1.5px}
+.section-description{margin:15px 0 0;color:var(--muted);font-size:15px}
+.about-grid{display:grid;grid-template-columns:minmax(280px,.8fr) minmax(0,1.2fr);gap:64px;align-items:center}
+.profile-photo-wrap{max-width:390px;padding:10px;background:var(--surface);border:1px solid var(--line);border-radius:11px}
+.profile-photo{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center 35%;border-radius:6px}
+.about-text p{margin:0 0 16px;color:var(--muted);font-size:16px;line-height:1.85}
+.about-text p:first-of-type{color:#e2e8e3}
+.about-label{margin-top:25px;padding:20px 22px;background:var(--surface);border:1px solid var(--line);border-radius:8px}
+.about-label strong{display:block;color:var(--green);font-size:27px}
+.about-label span{color:var(--muted);font-size:13px}
+.services-grid,.pricing-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.service-card,.price-card{padding:29px;background:var(--surface);border:1px solid var(--line);border-radius:10px}
+.service-number,.project-type{color:var(--green);font-size:11px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase}
+.service-card h3,.project-card h3,.price-card h3{margin:13px 0 9px;font-size:21px}
+.service-card p,.project-card p,.price-card p{margin:0;color:var(--muted);font-size:14px;line-height:1.75}
+.projects-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.project-card{overflow:hidden;display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:10px;transition:transform .2s,border-color .2s}
+.project-card:hover{transform:translateY(-4px);border-color:#607a42}
+.project-preview{height:205px;padding:13px;background:#202820;border-bottom:1px solid var(--line);overflow:hidden}
+.browser-frame{height:100%;overflow:hidden;border:1px solid #475348;border-radius:7px;background:#f5f6f3;color:#1e2821;box-shadow:0 4px 14px #0003}
+.browser-top{height:20px;display:flex;align-items:center;gap:4px;padding:0 8px;background:#e5e9e4;border-bottom:1px solid #d4dad3}
+.browser-top i{width:5px;height:5px;border-radius:50%;background:#9aa49b}
+.browser-address{height:8px;max-width:58%;margin-left:7px;border-radius:5px;background:#cbd2ca}
+.preview-content{height:calc(100% - 20px);padding:13px}
+.preview-brand{font-size:9px;font-weight:800;letter-spacing:.6px}
+.preview-brand b{color:#23834a}
+.quiz-preview{background:#101712;color:#f4f7f3}
+.quiz-preview .browser-top{background:#dce1dc}
+.quiz-preview .preview-content{padding:13px 16px}
+.quiz-title{margin:8px 0 3px;font-size:17px;font-weight:800}
+.quiz-sub{color:#a9b5aa;font-size:7px}
+.quiz-levels{display:flex;gap:7px;margin-top:13px}
+.quiz-level{flex:1;padding:9px 5px;border:1px solid #35543b;border-radius:5px;text-align:center;font-size:7px;color:#dbe9d9}
+.quiz-level:first-child{background:#24452c;color:#c4f28b}
+.quiz-button{width:76px;margin-top:12px;padding:5px;border-radius:4px;background:#a3e635;color:#17210e;text-align:center;font-size:7px;font-weight:800}
+.calc-preview .preview-content{display:flex;flex-direction:column;gap:7px}
+.calc-display{height:42px;padding:6px 9px;border:1px solid #dce2dc;border-radius:4px;text-align:right;font-size:17px;font-weight:700}
+.calc-keys{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;flex:1}
+.calc-keys span{display:grid;place-items:center;border-radius:3px;background:#e7ebe6;font-size:9px;font-weight:700}
+.calc-keys span:last-child{background:#26854b;color:white}
+.todo-preview .preview-content{padding:12px 15px}
+.todo-title{font-size:14px;font-weight:800}
+.todo-line{display:flex;align-items:center;gap:7px;margin-top:9px;padding:6px;border:1px solid #e0e5df;border-radius:4px;font-size:8px}
+.todo-check{width:9px;height:9px;border:1px solid #41915a;border-radius:2px}
+.todo-check.checked{background:#41915a}
+.project-info{display:flex;flex:1;flex-direction:column;padding:22px}
+.project-info h3{margin:9px 0 7px;font-size:21px}
+.project-link{align-self:flex-start;margin-top:auto;padding-top:20px;color:var(--green);font-size:13px;font-weight:700}
+.project-note,.pricing-note{margin:18px 0 0;color:#929d94;font-size:12px;line-height:1.6}
+.price-card{padding:27px}
+.price-card .price{display:block;margin:13px 0 8px;color:var(--green);font-size:25px;font-weight:800;letter-spacing:-.5px}
+.price-card p{min-height:46px}
+.contact-box{display:flex;align-items:center;justify-content:space-between;gap:35px;padding:40px;background:var(--surface);border:1px solid var(--line);border-radius:10px}
+.contact-box h2{margin:0 0 10px;font-size:34px;letter-spacing:-1px}
+.contact-box p{max-width:600px;margin:0;color:var(--muted);font-size:15px}
+footer{padding:26px 0;border-top:1px solid var(--line);color:#929d94;font-size:13px}
+.footer-inner{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+@media(max-width:900px){.container{width:calc(100% - 48px)}.hero-grid{gap:35px}.projects-grid{grid-template-columns:repeat(2,minmax(0,1fr))}nav{gap:18px} } 
+@media(max-width:650px){
+ .container{width:calc(100% - 34px)}.nav-wrap{height:66px}.menu-toggle{display:block}
+ nav{display:none;position:absolute;top:66px;left:0;right:0;padding:14px 17px;background:#141a16;border-bottom:1px solid var(--line);flex-direction:column;align-items:stretch;gap:0}
+ nav.open{display:flex}nav a{padding:12px 8px;font-size:14px}.nav-contact{margin-top:5px;text-align:center}
+ .hero{padding:70px 0 60px}.hero-grid,.about-grid{grid-template-columns:1fr;gap:28px}h1{font-size:clamp(43px,12vw,62px);letter-spacing:-2px}
+ section{padding:62px 0}.profile-photo-wrap{max-width:340px}.services-grid,.projects-grid,.pricing-grid{grid-template-columns:1fr}
+ .project-preview{height:220px}.contact-box{align-items:flex-start;flex-direction:column;padding:27px}.contact-box h2{font-size:29px} 
+}
+
+.project-preview.screenshot-preview{height:auto;aspect-ratio:16/9;overflow:hidden;background:#f1f5f2}
+.project-preview.screenshot-preview img{display:block;width:100%;height:100%;object-fit:cover;object-position:top center}
+@media(max-width:700px){.project-preview.screenshot-preview{aspect-ratio:16/9}  } 
+
+</style>
+</head>
+<body>
+<header><div class="container nav-wrap">
+<a class="logo" href="#home"><span class="logo-mark">BC</span><span class="logo-name">BRIDGET <span>CODES</span></span></a>
+<button class="menu-toggle" id="menu-toggle" aria-label="Open navigation" aria-expanded="false">☰</button>
+<nav id="main-nav"><a href="#about">About</a><a href="#services">Services</a><a href="#projects">Projects</a><a href="#pricing">Pricing</a><a class="nav-contact" href="#contact">Contact</a></nav>
+</div></header>
+<main>
+<section class="hero" id="home"><div class="container hero-grid"><div>
+<p class="eyebrow">Web development & graphic design</p>
+<h1>Ideas into <span>digital reality.</span></h1>
+<p class="hero-copy">Hi, I'm Bridget. I build clean, responsive websites and create graphics that help individuals and businesses present their ideas online.</p>
+<div class="actions"><a class="btn btn-primary" href="#projects">View my work</a><a class="btn btn-outline" href="#contact">Let's work together</a></div>
+</div><aside class="hero-note"><small>BRIDGET CODES</small><h2>Simple design.<br>Useful experiences.</h2><p>Thoughtful digital work, made to look good and work well across devices.</p><div class="note-line"></div><div class="mini-services"><span>Website development</span><span>Graphic design</span><span>Responsive layouts</span></div></aside></div></section>
+<section id="about"><div class="container about-grid">
+<div class="profile-photo-wrap"><img class="profile-photo" src="IMG-20261103-WA0028.jpg" alt="Portrait of Bridget, the creator of BRIDGET CODES"></div>
+<div class="about-text"><div class="section-head"><p class="section-kicker">A little about me</p><h2 class="section-title">The person behind the code.</h2></div>
+<p>I'm Bridget, a frontend developer and graphic designer who enjoys turning ideas into clear, practical digital experiences.</p>
+<p>I work with HTML, CSS and JavaScript to create responsive websites, and I also design graphics for online use. I'm always learning, improving my skills and taking on projects that help me grow.</p>
+<div class="about-label"><strong>BRIDGET CODES</strong><span>Creative work with a practical approach.</span></div></div></div></section>
+<section id="services"><div class="container"><div class="section-head"><p class="section-kicker">What I do</p><h2 class="section-title">Services</h2><p class="section-description">Digital services for individuals, creators and growing businesses.</p></div>
+<div class="services-grid"><article class="service-card"><span class="service-number">01 / WEB</span><h3>Website Development</h3><p>Responsive landing pages, personal portfolios and business websites designed to work across phones, tablets and computers.</p></article>
+<article class="service-card"><span class="service-number">02 / DESIGN</span><h3>Graphic Design</h3><p>Clean graphics for promotions, announcements, social media and other digital needs.</p></article></div></div></section>
+<section id="projects"><div class="container"><div class="section-head"><p class="section-kicker">Selected work</p><h2 class="section-title">Projects I've built</h2><p class="section-description">Take a look at a preview of each project before opening it.</p></div>
+<div class="projects-grid">
+<article class="project-card"><div class="project-preview screenshot-preview"><img src="brain-rush-preview.png" alt="Screenshot preview of the Brain Rush Quiz website"></div><div class="project-info"><span class="project-type">Live project · Quiz platform</span><h3>Brain Rush Quiz</h3><p>An online quiz project with different difficulty levels and an interactive quiz experience.</p><a class="project-link" href="https://brain-rush-quiz.netlify.app" target="_blank" rel="noopener noreferrer">Open project ↗</a></div></article>
+<article class="project-card"><div class="project-preview screenshot-preview"><img src="calculator-preview.png" alt="Screenshot preview of the BRIDGET CODES calculator"></div><div class="project-info"><span class="project-type">Practice project · JavaScript</span><h3>Calculator</h3><p>A simple calculator for everyday arithmetic, built with HTML, CSS and JavaScript.</p><a class="project-link" href="bridget-codes-calculator.html">Open project ↗</a></div></article>
+<article class="project-card"><div class="project-preview screenshot-preview"><img src="todo-list-preview.png" alt="Screenshot preview of the BRIDGET CODES to-do list"></div><div class="project-info"><span class="project-type">Practice project · JavaScript</span><h3>To-Do List</h3><p>A task list where users can add tasks, mark them complete and remove them.</p><a class="project-link" href="bridget-codes-todo-list.html">Open project ↗</a></div></article>
+<!-- </div><p class="project-note">The Calculator and To-Do List links work when their HTML files are uploaded into the same folder as this portfolio. Project previews use real screenshots. Keep the three PNG preview images in the same folder as this HTML file.</p> -->
+</div></section>
+<section id="pricing"><div class="container"><div class="section-head"><p class="section-kicker">Starting prices</p><h2 class="section-title">Straightforward pricing</h2><p class="section-description">Final prices depend on the project requirements and features needed.</p></div>
+<div class="pricing-grid">
+<article class="price-card"><h3>Landing Page</h3><span class="price">₦30,000–₦50,000</span><p>A focused page for a product, service, event or campaign.</p></article>
+<article class="price-card"><h3>Personal Portfolio</h3><span class="price">₦30,000–₦50,000</span><p>A personal website to introduce you and showcase your work.</p></article>
+<article class="price-card"><h3>Business Website</h3><span class="price">₦70,000–₦100,000</span><p>A website to present your business, services and contact details.</p></article>
+<article class="price-card"><h3>Website Redesign</h3><span class="price">₦50,000–₦100,000</span><p>An update to an existing website's layout, appearance and usability.</p></article>
+<article class="price-card"><h3>Flyer Design</h3><span class="price">From ₦2,000</span><p>Promotional and announcement graphics for digital use.</p></article>
+</div><p class="pricing-note">Prices are starting estimates. A clear quote will be provided before work begins.</p></div></section>
+<section id="contact"><div class="container"><div class="contact-box"><div><p class="section-kicker">Have a project in mind?</p><h2>Let's make it happen.</h2>  <p>Tell me a little about what you need, and we can discuss the next steps.</p></div> <div class="conc"><a class="btn btn-primary" href="mailto:bridgetcodes16@gmail.com?subject=Project%20Enquiry">Email me</a> <a  class="btn btn-primary" href="https://wa.me/2348163497574">WHATSAPP</a></div></div></div></section>
+</main>
+<footer><div class="container footer-inner"><span>© <span id="year"></span> BRIDGET CODES. All rights reserved.</span><span>Ideas Into Digital Reality.</span></div></footer>
+<script>
+const toggle=document.getElementById('menu-toggle'),nav=document.getElementById('main-nav');
+toggle.addEventListener('click',()=>{const open=nav.classList.toggle('open');toggle.setAttribute('aria-expanded',String(open));toggle.setAttribute('aria-label',open?'Close navigation':'Open navigation')});
+nav.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{nav.classList.remove('open');toggle.setAttribute('aria-expanded','false');toggle.setAttribute('aria-label','Open navigation')}));
+document.getElementById('year').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
